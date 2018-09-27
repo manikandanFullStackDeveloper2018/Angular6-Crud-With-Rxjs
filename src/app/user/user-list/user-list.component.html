@@ -1,0 +1,27 @@
+<div class="card table-responsive " >
+  <div class="card-header text-left">
+    User List :
+  </div>
+  <div class="card-body ">
+    <table class="table ">
+      <thead>
+        <tr>
+          <th scope="col">S.No</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Category</th>
+          <th scope="col" *ngIf="EditEnabled">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let newUser of UserList;let i=index;">
+            <th scope="row">{{i+1}}</th>
+            <td>{{newUser.name}}</td>
+            <td>{{newUser.email}}</td>
+            <td>{{newUser.category}}</td>
+            <td *ngIf="EditEnabled"><a [routerLink]="'/user/edit'" [queryParams]="{id:i}"><fa-icon [icon]="faEdit" ></fa-icon></a> | <a style="cursor: pointer" (click)="OnUserDetailsDelete(i)"><fa-icon [icon]="faTrashAlt" ></fa-icon></a></td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+</div>		

@@ -1,0 +1,84 @@
+<div class="card">
+	<div class="card-header text-center" *ngIf="EditEnabled">
+		Edit User
+	</div>
+	<div class="card-header text-center" *ngIf="!EditEnabled">
+		Add User
+	</div>	
+	<div class="card-body ">
+		<div class="form-group col-sm-12 col-md-6">
+			<span class="clearfix form-text text-success" *ngIf="message">
+				{{message}}
+			</span>
+		</div>
+		<form [formGroup]="addUser" (ngSubmit)="onSubmitNewUser()" >
+			<div class="form-group col-sm-12 col-md-6">
+				<label for="name">{{addUserLabel.name}} </label>
+
+	            <div class="input-group" >  
+	              <div class="input-group-prepend">  
+	                <span class="input-group-text">  
+	                  <fa-icon [icon]="regularUser" ></fa-icon>  
+	                </span>  
+	              </div>  
+					<input type="text" name="name" minlength="5" maxlength="20" id="name" class="form-control" formControlName="name" appAlphanumeric required >
+	            </div>
+					<span class="clearfix form-text text-danger" *ngIf="!addUser.valid && addUser.get('name').touched && addUser.get('name').errors?.required">{{commonValidationLabels.inputempty}} {{addUserLabel.name}}</span>
+					<span class="clearfix form-text text-danger" *ngIf="!addUser.valid && addUser.get('name').touched && addUser.get('name').errors?.minlength">{{addUserLabel.name}} {{commonValidationLabels.inputmin}} 5 Characters </span>
+					<span class="clearfix form-text text-danger" *ngIf="!addUser.valid && addUser.get('name').touched && addUser.get('name').errors?.maxlength">{{addUserLabel.name}} {{commonValidationLabels.inputmax}} 20 Characters</span>	            
+			</div>
+			<div class="form-group col-sm-12 col-md-6">
+				<label for="email">{{addUserLabel.email}} </label>
+
+	            <div class="input-group">  
+	              <div class="input-group-prepend">  
+	                <span class="input-group-text">  
+	                  <fa-icon [icon]="faEnvelope"></fa-icon> 
+	                </span>  
+	              </div>  
+	              	<input type="text" name="email" id="email" class="form-control" email formControlName="email" required>
+	            </div> 
+					
+					<span class="form-text text-danger" *ngIf="!addUser.valid && addUser.get('email').touched && addUser.get('email').errors?.required">{{commonValidationLabels.inputempty}}{{addUserLabel.email}}</span>
+					<span class="form-text text-danger" *ngIf="!addUser.valid && addUser.get('email').touched && addUser.get('email').errors?.email">{{commonValidationLabels.inputvalid}}{{addUserLabel.email}}</span>	            
+			</div>
+			<div class="form-group col-sm-12 col-md-6">
+				<label for="gender" >{{addUserLabel.gender}} </label>
+				<div class="pl-2 form-check-inline">
+					<label class="form-check-label">
+					<input type="radio" name="gender" id="gender" formControlName="gender" class="form-check-input" [value]="genderObj.male" required>
+					Male
+					</label>
+				</div>
+				<div class="form-check-inline">
+					<label class="form-check-label">
+					<input type="radio" name="gender" id="gender" formControlName="gender" class="form-check-input" [value]="genderObj.female" required>
+					Female
+					</label>
+				</div>
+				<span class="form-text text-danger" *ngIf="!addUser.valid && addUser.get('gender').touched && addUser.get('gender').errors?.required">{{commonValidationLabels.inputradio}} {{addUserLabel.gender}}</span>				
+			</div>
+			<div class="form-group col-sm-12 col-md-6">
+				<label for="category">{{addUserLabel.category}} </label>
+				<div class="form-group">
+				<div class="input-group">
+				  <div class="input-group-prepend">
+				    <label class="input-group-text" for="category">Options</label>
+				  </div>
+					<select name="category" id="category" formControlName="category" class="form-control" required>
+						<option value="" >--Choose--</option>
+						<option *ngFor="let sCategory of categoryArr" [ngValue]="sCategory">
+							 {{sCategory}}
+						</option>
+					</select>
+				</div>
+				<span class="form-text text-danger" *ngIf="!addUser.valid && addUser.get('category').touched && addUser.get('category').errors?.required">{{commonValidationLabels.selectempty}}{{addUserLabel.category}}</span>					
+				</div>
+				
+			</div>
+			<div class="form-group">
+				<button class="btn btn-primary form-control col-sm-12 col-md-2" [disabled]="!addUser.valid">Submit</button>
+			</div>
+		</form>
+	</div>
+</div>
