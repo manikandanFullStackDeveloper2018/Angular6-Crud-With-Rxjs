@@ -1,4 +1,4 @@
-#<h1>Angular6-Crud-With-Rxjs</h1>
+#Angular6-Crud-With-Rxjs
 <i>Author : Manikandan</i>
 
  This is a simple Angular crud application without http backend . Its a basic angular application structure for beginners. In angular, We need to know few concepts are deeply such as router, http, observables, forms, Code scaffolding and memory leaking.
